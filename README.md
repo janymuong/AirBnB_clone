@@ -1,22 +1,22 @@
-# AirBnB: 'the console'
+# AirBnB: the console
 
 <div align="center">
  <img src="./hack/hbnb_console.png" height="250" />
 </div>
 
-This is a clone of the AirBnB website: partly console(command interpreter), Python OOP, file storage etc.
+Part: `The console` <br/>
+This is the first part of the AirBnB project series.
+
+This is a clone of the AirBnB website that partly covers these concepts: console(command interpreter), Python OOP, file storage etc.
 
 ---
 ### Basic Functionality
-This is the first part of the AirBnB project series.
-
-Part: `The console`
 
 Specifications:
 ```bash
-        - create data model - Python Object Orientation.
-        - manage (create, update, destroy, etc) objects via a console / command interpreter
-        - store and persist objects to a file (JSON file)
+    - create data model - Python Object Orientation.
+    - manage (create, update, destroy, etc) objects via a console / command interpreter
+    - store and persist objects to a file (JSON file)
 ```
 The first piece is to manipulate a powerful storage system. This storage engine will give us an abstraction between “My object” and “How they are stored and persisted”. This means: from your console code (the command interpreter itself) and from the front-end and `RESTfull API` (built later in subsequent series), you won’t have to pay attention (take care) of how your objects are stored.
 
@@ -41,8 +41,10 @@ This section is all file info.
 └── * miscellaneous/anything else
 ```
 ## Command Interprter
-> `command-line interface`
+> `command-line interface`<br/>
 A shell implementation that uses the `Python` module `cmd`: which provides a simple framework for writing line-oriented command interpreters.
+
+
 ### `usage`
 - Supposed theoretical behavior in interactive mode:
 ```bash
