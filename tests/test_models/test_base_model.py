@@ -75,3 +75,13 @@ class TestBaseModel(unittest.TestCase):
         model = BaseModel()
         msg = "Expected id to be non-blank"
         assert not model.id.isspace(), msg
+
+    def test_id_is_uuid(self):
+        """
+            test that id is a valid uuid
+            Raises a valueError if id is not a valid UUID
+        """
+        model = BaseModel()
+        msg = "Expected id to be uuid format-{}(uuidv4) but got '{}'".format(
+                uuid.uuidv4(), model.id)
+        assert uuid.UUID(model.id), msg
