@@ -4,16 +4,21 @@ Base (class) model for:
 subclassing/inheritance, serialization and deserilaization is the superclass.
 '''
 
-from datetime import datetime
 import uuid
+from datetime import datetime
 
 
 class BaseModel:
     '''Defines all common attributes/methods for other classes
     '''
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         '''constructor method
         Initialize BaseModel instance attributes
+
+        args:
+            are arbitrary variable args and arbitrary named args:
+            *args: a Tuple that contains all arguments to construtor
+            **kwargs: a dictionary key-worded(key/value) arguments
 
         attributes:
             id: (string) universally unique identifier
@@ -21,9 +26,21 @@ class BaseModel:
             updated_at: (datetime) timestamp
         '''
 
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            for key, val in kwargs.items():
+                if key not in ('__class__', 'created_at', 'updated_at'):
+                    setattr(self, key, val)
+                elif key in ('created_at', 'updated_at'):
+                    setattr(self, key,
+                            datetime.strptime(val, '%Y-%m-%dT%H:%M:%S.%f')
+                            )
+            self.id = kwargs.get('id', str(uuid.uuid4()))
+            self.created_at = kwargs.get('created_at', datetime.now())
+            self.updated_at = kwargs.get('updated_at', datetime.now())
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         '''__str__
