@@ -83,5 +83,101 @@ class TestBaseModel(unittest.TestCase):
         """
         model = BaseModel()
         msg = "Expected id to be uuid format-{}(uuidv4) but got '{}'".format(
-                uuid.uuidv4(), model.id)
+            uuid.uuidv4(), model.id)
         assert uuid.UUID(model.id), msg
+
+    def test_createdAt_updatedAt_is_present(self):
+        """
+            test that that public instance attribute created_at\
+                    & updated_at is present
+        """
+        model = BaseModel()
+        msg = "Expected {} to have public instance attributes\
+                created_at and updated_at".format(
+            type(model).__name__)
+        self.assertTrue(hasAttr(model, 'created_at'), msg)
+        self.assertTrue(hasAttr(model, 'updated_at'), msg)
+
+        self.assertIn('created_at', model.__dict__.keys(), msg)
+        self.assertIn('updated_at', model.__dict__.keys(), msg)
+
+    def test_createdAt_updatedAt_is_set_to_current_time_on_create(self):
+        """
+            tests that created_at and updated_at are set to the current time\
+                    when object is created
+        """
+        model = BaseModel()
+        self.assertAlmostEqual(model.created_at, datetime.now(),
+                               delta=timedelta(milliseconds=10))
+        self.assertAlmostEqual(model.updated_at, datetime.now(),
+                               delta=timedelta(milliseconds=10))
+
+    def test_created_at_and_updated_at_are_equal_on_create(self):
+        """
+            tests that created_at == updated_at on create
+        """
+        model = BaseModel()
+        self.assertEqual(model.created_at, model.updated_at)
+
+    def test_updated_at_is_updated_on_updates(self):
+        """
+            tests that updated_at is updated when object is changed
+        """
+        model = BaseModel()
+
+        updated_at = model.updated_at
+
+        model.update = "this is an update"
+        self.assertNotEqual(updated_at, model.updated_at)
+
+    def test_updated_at_is_set_to_current_time_on_update(self):
+        """
+            test that updated_at is set to current time on updated
+        """
+        model = BaseModel()
+        model.update = "this is an update"
+        self.assertAlmostEqual(model.updated_at, datetime.now,
+                               delta=timedelta(milliseconds=10))
+
+    def test_created_at_not_updated_on_updates(self):
+        """
+            test that created_at is not updated when an update is done
+        """
+        model = BaseModel()
+        created_at = model.created_at
+        model.update = "this is an update"
+        self.assertEqual(created_at, model.created_at)
+
+    def test_updated_at_greater_than_created_at_on_updates(self):
+        """
+            test that updated_at is greater than created_at after update
+        """
+        model = BaseModel()
+        created_at = model.created_at
+
+        model.update = "is an update"
+
+        self.assertGreater(model.updated_at, created_at)
+
+    def test_created_at_and_updated_at_is_str(self):
+        """
+            test that created_at and updated_at are str objects
+        """
+        model = BaseModel()
+        self.assertIsInstance(model.created_at, str)
+        self.assertTrue(type(model.created_at) == str)
+        self.assertIsInstance(model.updated_at, str)
+        self.assertTrue(type(model.updated_at) == str)
+
+    def test_created_at_and_updated_at_are_from_datetime(self):
+        """
+            test that created_at and updated_at were created from datetime\
+                    objects
+        """
+        model = BaseModel()
+        isoFormat = "%Y-%m-%dT%H:%M:%S.%f"
+        created_datetime = datetime.strptime(model.created_at, isoFormat)
+        updated_datetime = datetime.strptime(model.updated_at, isoFormat)
+
+        self.assertIsInstance(created_datetime, datetime)
+        self.assertIsInstance(updated_datetime, datetime)
