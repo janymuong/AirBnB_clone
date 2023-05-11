@@ -50,7 +50,33 @@ class HBNBCommand(cmd.Cmd):
         except Exception as e:
             pass
 
-    def do_EOF(self, line):
+    def do_show(self, arg):
+        '''show
+        Prints the string representation of an instance based on the class
+        name and id.
+        Ex: $ show BaseModel 1234-1234-1234.
+        '''
+        args = arg.split()
+        if len(args) == 0:
+            print(err_msg[0])
+            return
+        elif len(args) == 1:
+            print(err_msg[2])
+            return
+        else:
+            cls_name = args[0]
+            obj_id = args[1]
+            if cls_name not in cls_names:
+                print(err_msg[1])
+                return
+            file_objs = storage.all()
+            obj_key = f'{cls_name}.{obj_id}'
+            if obj_key not in file_objs:
+                print(err_msg[3])
+                return
+            print(file_objs[obj_key])
+
+    def do_EOF(self, arg):
         '''EOF
         exit the interpreter with end-of-file SIGTERM ctrl + D
         or typing line 'EOF' in shell prompt
@@ -58,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
 
-    def do_quit(self, line):
+    def do_quit(self, arg):
         '''quit
         Quit command to exit the program
         type line chars 'quit'
