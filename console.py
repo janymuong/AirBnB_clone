@@ -52,8 +52,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         '''show
-        prints the string representation of an instance based on the class
-        name and id.
+        prints the string representation of an instance
+        based on the class name and id.
         Ex: $ show BaseModel 1234-1234-1234.
         '''
         args = arg.split()
@@ -74,6 +74,29 @@ class HBNBCommand(cmd.Cmd):
                 print(err_msg[3])
                 return
             print(file_objs[obj_key])
+
+    def do_destroy(self, arg):
+        '''destroy
+        deletes an instance based on the class name
+        and id (save the change into the JSON file).
+        Ex: $ destroy BaseModel 1234-1234-1234
+        '''
+        args = arg.split()
+
+        if len(args) == 0:
+            print(err_msg[0])
+        elif args[0] not in cls_names:
+            print(err_msg[1])
+        elif len(args) == 1:
+            print(err_msg[2])
+        else:
+            obj_key = f'{args[0]}.{args[1]}'
+            file_objs = storage.all()
+            if obj_key not in file_objs:
+                print(err_msg[3])
+                return
+            del file_objs[obj_key]
+            storage.save()
 
     def do_EOF(self, arg):
         '''EOF
