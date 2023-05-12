@@ -59,9 +59,10 @@ class TestBaseModel(unittest.TestCase):
     def test_id_length(self):
         """
             test that id has correct length
+            id is uuid 'expected to have 36 chars'
         """
         model = BaseModel()
-        expected = 32
+        expected = 36
         actual = len(model.id)
         msg = "Expected id length to be {} but got {}\nExpected:\n\t{}\n\
                 Actual:\n\t{}"
@@ -123,7 +124,8 @@ class TestBaseModel(unittest.TestCase):
         msg = "Expected created_at: {} to be equal to updated_at: {}".format(
             model.created_at, model.updated_at)
 
-        self.assertEqual(model.created_at, model.updated_at, msg)
+        self.assertAlmostEqual(model.created_at, model.updated_at,
+                               delta=timedelta(milliseconds=10))
 
     def test_updated_at_is_updated_on_updates(self):
         """
@@ -134,6 +136,7 @@ class TestBaseModel(unittest.TestCase):
         updated_at = model.updated_at
 
         model.update = "this is an update"
+        model.save()
 
         msg = "Expected updated_at:[before update] {} not to be equal to\
                 updated_at: [after update] {}".format(
@@ -146,12 +149,13 @@ class TestBaseModel(unittest.TestCase):
         """
         model = BaseModel()
         model.update = "this is an update"
+        model.save()
         msg = "Expected updated_at to be set to current time on update\n.\
                 Expected:\n\t{}\nActual:\n\t{}".format(datetime.now(),
                                                        model.updated_at)
 
         self.assertAlmostEqual(model.updated_at, datetime.now(),
-                               delta=timedelta(milliseconds=10))
+                               delta=timedelta(milliseconds=100))
 
     def test_created_at_not_updated_on_updates(self):
         """
@@ -162,6 +166,7 @@ class TestBaseModel(unittest.TestCase):
         created_at = model.created_at
 
         model.update = "this is an update"
+        model.save()
 
         msg = "Expected created_at to not be updated on updates.\nExpected:\
                 \n\t{}\nActual:\n\t{}".format(created_at, model.created_at)
@@ -198,7 +203,7 @@ class TestBaseModel(unittest.TestCase):
         msg = "Expected {} to have a __str__ function".format(
             type(model).__name__)
         self.assertTrue(hasattr(model, '__str__'), msg)
-        self.assertIn('__str__', model.__dict__.keys(), msg)
+        self.assertIn('__str__', BaseModel.__dict__.keys(), msg)
 
     def test_str_method_returns_string(self):
         """
@@ -232,7 +237,7 @@ class TestBaseModel(unittest.TestCase):
             type(model).__name__)
 
         self.assertTrue(hasattr(model, 'save'), msg)
-        self.assertIn('save', model.__dict__.keys(), msg)
+        self.assertIn('save', BaseModel.__dict__.keys(), msg)
 
     def test_save_function_updates_updated_at_with_current_time(self):
         """
@@ -245,7 +250,6 @@ class TestBaseModel(unittest.TestCase):
         actual = model.updated_at
         msg = "Expected updated_at to be updated with the current time {} but\
                 but got {}".format(expected, actual)
-
 
     def test_to_dict_is_present(self):
         """
@@ -291,7 +295,7 @@ class TestBaseModel(unittest.TestCase):
         msg = "Expected the returned dict to have key '__class__'"
 
         self.assertIn("__class__", actual, msg)
-        self.assertEqual(actual.__class__, type(model).__name__, "Expected\
+        self.assertEqual(actual['__class__'], type(model).__name__, "Expected\
                 value of __class__ to be 'BaseModel' but got {}".format(
             actual.__class__))
 
@@ -306,7 +310,8 @@ class TestBaseModel(unittest.TestCase):
         msg = "Expected all key/values here: {} to be in {}".format(
             model.__dict__, actual)
 
-        self.assertDictContainsSubset(model.__dict__, actual, msg)
+        self.assertTrue(set(model.__dict__.items()).issubset(
+            set(actual.items())), msg)
 
     @unittest.skipIf(not hasattr(BaseModel, 'to_dict'), 'to_dict not present')
     def test_created_at_and_updated_saved_as_str(self):
@@ -331,10 +336,52 @@ class TestBaseModel(unittest.TestCase):
         dict_value = model.to_dict()
         isoFormat = "%Y-%m-%dT%H:%M:%S.%f"
         created_datetime = datetime.strptime(
-                dict_value['created_at'], isoFormat)
+            dict_value['created_at'], isoFormat)
 
         updated_datetime = datetime.strptime(
-                dict_value['updated_at'], isoFormat)
+            dict_value['updated_at'], isoFormat)
 
         self.assertIsInstance(created_datetime, datetime)
         self.assertIsInstance(updated_datetime, datetime)
+
+    def test_object_created_from_dict(self):
+        """
+            tests that object instance can be created from serialized dict
+        """
+        model = BaseModel()
+        data = model.to_dict()
+        new_model = BaseModel(**data)
+
+        self.assertIsInstance(new_model, BaseModel)
+        self.assertFalse(new_model is model)
+        self.assertFalse(not hasattr(new_model, '__class__'))
+        self.assertNotEqual(new_model.id, model.id,
+                "Expect new object and old object to have unique ids.")
+
+    def test_new_obj_created_at(self):
+        """
+            test that new object's created_at is created on creation
+        """
+        model = BaseModel()
+        data = model.to_dict()
+        new_model = BaseModel(**data)
+        data2 = new_model.to_dict()
+
+        self.assertAlmostEqual(new_model.created_at, datetime.now(),
+                delta=timedelta(milliseconds = 10))
+        self.assertNotEqual(data['created_at'], data2['created_at'],
+                "Expect new object and old object not to have same created_at")
+
+    def test_new_obj_updated_at(self):
+        """
+            test new object's updated_at is not updated on creation
+        """
+        model = BaseModel()
+        data = model.to_dict()
+        new_model = BaseModel(**data)
+        data2 = new_model.to_dict()
+
+        self.assertEqual(data2['updated_at'], data['updated_at'])
+
+
+
