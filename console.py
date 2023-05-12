@@ -108,16 +108,66 @@ class HBNBCommand(cmd.Cmd):
             print([str(file_obj) for file_obj in storage.all().values()])
             return
 
-        else:
-            try:
-                cls = arg.split()[0]
+        try:
+            cls = arg.split()[0]
 
-                if cls not in cls_names:
-                    print(err_msg[1])
-                    return
-                print([str(obj) for obj in storage.all(cls).values()])
-            except Exception:
-                pass
+            if cls not in cls_names:
+                print(err_msg[1])
+                return
+            file_objs = storage.all()
+            print([str(obj) for obj in file_objs.values()
+                   if obj.__class__.__name__ == cls])
+        except Exception:
+            pass
+
+    def do_update(self, arg):
+        '''update
+        updates an instance based on the class name and id
+        by adding or updating attribute (save the change into the JSON file).
+        usage: update <class name> <id> <attribute name> "<attribute value>"
+        '''
+        args = arg.split()
+
+        if not arg:
+            print(err_msg[0])
+            return
+        if args[0] not in cls_names:
+            print(err_msg[1])
+            return
+        if len(args) < 2:
+            print(err_msg[2])
+            return
+
+        file_objs = storage.all()
+        obj_key = f'{args[0]}.{args[1]}'
+        if obj_key not in file_objs:
+            print(err_msg[3])
+            return
+
+        obj = file_objs[obj_key]
+
+        if len(args) == 2:
+            print(err_msg[4])
+            return
+        if len(args) < 4:
+            print(err_msg[5])
+            return
+
+        attr = args[2]
+        value = args[3]
+
+        if not hasattr(obj, attr):
+            print("** errmsg: attribute not found **")
+            return
+        elif attr == 'id' or attr == 'created_at' or attr == 'updated_at':
+            return
+        try:
+            value = type(getattr(obj, attr))(value)
+        except ValueError:
+            pass
+        setattr(obj, attr, value)
+        storage.save()
+        return
 
     def do_EOF(self, arg):
         '''EOF
