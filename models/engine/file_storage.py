@@ -43,7 +43,7 @@ class FileStorage:
         for key, val in FileStorage.__objects.items():
             save_dict[key] = val.to_dict()
 
-        with open(FileStorage.__file_path,'w', encoding='utf-8') as f:
+        with open(FileStorage.__file_path, mode='w', encoding='utf-8') as f:
             json.dump(save_dict, f)
 
     def reload(self):
