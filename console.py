@@ -47,30 +47,29 @@ class HBNBCommand(cmd.Cmd):
             instance = eval(cls)()
             instance.save()
             print(instance.id)
-        except Exception as e:
+        except Exception:
             pass
 
     def do_show(self, arg):
         '''show
-        Prints the string representation of an instance based on the class
+        prints the string representation of an instance based on the class
         name and id.
         Ex: $ show BaseModel 1234-1234-1234.
         '''
         args = arg.split()
+
         if len(args) == 0:
             print(err_msg[0])
-            return
         elif len(args) == 1:
-            print(err_msg[2])
-            return
-        else:
-            cls_name = args[0]
-            obj_id = args[1]
-            if cls_name not in cls_names:
+            if args[0] not in cls_names:
                 print(err_msg[1])
-                return
+            else:
+                print(err_msg[2])
+        elif len(args) == 2 and args[0] not in cls_names:
+            print(err_msg[1])
+        else:
+            obj_key = f'{args[0]}.{args[1]}'
             file_objs = storage.all()
-            obj_key = f'{cls_name}.{obj_id}'
             if obj_key not in file_objs:
                 print(err_msg[3])
                 return
