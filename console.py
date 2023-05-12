@@ -98,6 +98,27 @@ class HBNBCommand(cmd.Cmd):
             del file_objs[obj_key]
             storage.save()
 
+    def do_all(self, arg):
+        '''all
+        prints all string representation of all instances
+        based or not on the class name.
+        ex: $ all BaseModel or $ all.
+        '''
+        if not arg:
+            print([str(file_obj) for file_obj in storage.all().values()])
+            return
+
+        else:
+            try:
+                cls = arg.split()[0]
+
+                if cls not in cls_names:
+                    print(err_msg[1])
+                    return
+                print([str(obj) for obj in storage.all(cls).values()])
+            except Exception:
+                pass
+
     def do_EOF(self, arg):
         '''EOF
         exit the interpreter with end-of-file SIGTERM ctrl + D
