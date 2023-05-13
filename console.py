@@ -8,6 +8,7 @@ import cmd
 
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 
 
 PROMPT = '(hbnb) '
@@ -20,7 +21,7 @@ err_msg = ['** class name missing **',
            '** value missing **'
            ]
 
-cls_names = {'BaseModel'}
+cls_names = {'BaseModel', 'User'}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -98,28 +99,6 @@ class HBNBCommand(cmd.Cmd):
             del file_objs[obj_key]
             storage.save()
 
-    def do_all(self, arg):
-        '''all
-        prints all string representation of all instances
-        based or not on the class name.
-        ex: $ all BaseModel or $ all.
-        '''
-        if not arg:
-            print([str(file_obj) for file_obj in storage.all().values()])
-            return
-
-        try:
-            cls = arg.split()[0]
-
-            if cls not in cls_names:
-                print(err_msg[1])
-                return
-            file_objs = storage.all()
-            print([str(obj) for obj in file_objs.values()
-                   if obj.__class__.__name__ == cls])
-        except Exception:
-            pass
-
     def do_update(self, arg):
         '''update
         updates an instance based on the class name and id
@@ -168,6 +147,28 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj, attr, value)
         storage.save()
         return
+
+    def do_all(self, arg):
+        '''all
+        prints all string representation of all instances
+        based or not on the class name.
+        ex: $ all BaseModel or $ all.
+        '''
+        if not arg:
+            print([str(file_obj) for file_obj in storage.all().values()])
+            return
+
+        try:
+            cls = arg.split()[0]
+
+            if cls not in cls_names:
+                print(err_msg[1])
+                return
+            file_objs = storage.all()
+            print([str(obj) for obj in file_objs.values()
+                   if obj.__class__.__name__ == cls])
+        except Exception:
+            pass
 
     def do_EOF(self, arg):
         '''EOF
