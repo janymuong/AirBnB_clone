@@ -1,7 +1,7 @@
 # AirBnB: the console
 
 <div align="center">
- <img src="./hack/hbnb_console.png" height="150" width="500" />
+ <img src="./hack/hbnb_console.png" height="100" width="600" />
 </div>
 
 Part: `the console` <br/>
@@ -91,7 +91,7 @@ $
 Is a `CRUD` simulated behavior - operations on objects in command-line.
 
 > **Note**: <br/>
-> Example of the interpreter features: `create`, `show`, `update`, `destroy`, etc<br/>
+> Sample interpreter features: `create`, `show`, `update`, `destroy`, etc<br/>
 > create a new base instance - the syntax would be: `$ create BaseModel`<br/>
 > use the `help` menu as a manual/reference: `$ help destroy`<br/>
 > see the shell session below for reference on how to use the command interpreter/console:
