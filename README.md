@@ -1,7 +1,7 @@
 # AirBnB: the console
 
 <div align="center">
- <img src="./hack/hbnb_console.png" height="200" />
+ <img src="./hack/hbnb_console.png" height="150" width="400" />
 </div>
 
 Part: `the console` <br/>
@@ -20,14 +20,14 @@ This is a clone of the [AirBnB website](https://www.airbnb.com/). This specific 
 ```
 The first piece is to manipulate a storage system. This storage engine will give us an abstraction between model ***objects*** and ***storage(persisting to storage)***. This means: from the console code (the developed command interpreter itself) and from the front-end and `RESTfull API` (built later on in subsequent series).
 
-This abstraction will also allow you to change the type of storage easily without updating all of your codebase eg using a storage db.<br/>
+This abstraction will also allow you to change the type of storage easily without updating all of your codebase eg using a **storage db**.<br/>
 The console will be a tool to validate the storage engine...
 
 ## File Hierarchy:
 This section is all file info.
 ```bash
 .
-├── AUTHORS - Docker specified formatted file for contributers
+├── AUTHORS - Docker specified formatted file for contributors
 ├── README.md - project documentation.
 ├── console.py - single-use command interpreter(uses Python `cmd` module).
 ├── models/ - the main driver of the project; lays out Python Object Orientation, initialization,  serialization, (de)serialization etc.
@@ -87,8 +87,8 @@ EOF  help  quit
 $
 ```
 
-### Actual `Shell` Behavior [x]:
-Is a `CRUD` simulated behavior.  - operations on objects in command-line.
+### Actual `Shell` Behavior:
+Is a `CRUD` simulated behavior - operations on objects in command-line.
 
 > **Note**: <br/>
 > Example of the interpreter features: `create`, `show`, `update`, `destroy`, etc<br/>
@@ -120,5 +120,5 @@ root@HP:/alx-SE/AirBnB_clone#
 ```
 
 ## Authors
-You can find a list of contributers/project developers in the [authors](./AUTHORS) file.
+You can find a list of contributors/project developers in the [authors](./AUTHORS) file.
 If you like this project, take us out for `coffee` :)
