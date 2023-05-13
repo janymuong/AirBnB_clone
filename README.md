@@ -1,45 +1,48 @@
 # AirBnB: the console
 
 <div align="center">
- <img src="./hack/hbnb_console.png" height="250" />
+ <img src="./hack/hbnb_console.png" height="200" />
 </div>
 
-Part: `The console` <br/>
-This is the first part of the AirBnB project series.
+Part: `the console` <br/>
+This is the first part of the `AirBnB Clones` project series.
 
-This is a clone of the AirBnB website that partly covers these concepts: console(command interpreter), Python OOP, file storage etc.
+This is a clone of the [AirBnB website](https://www.airbnb.com/). This specific part partly covers these concepts: `console(command interpreter)`, `Python Object Oriented Programming(OOP)`, ``file storage` etc.
 
 ---
 ### Basic Functionality
 
-Specifications:
+`Specifications`:
 ```bash
     - create data model - Python Object Orientation.
     - manage (create, update, destroy, etc) objects via a console / command interpreter
     - store and persist objects to a file (JSON file)
 ```
-The first piece is to manipulate a powerful storage system. This storage engine will give us an abstraction between “My object” and “How they are stored and persisted”. This means: from your console code (the command interpreter itself) and from the front-end and `RESTfull API` (built later in subsequent series), you won’t have to pay attention (take care) of how your objects are stored.
+The first piece is to manipulate a storage system. This storage engine will give us an abstraction between model ***objects*** and ***storage(persisting to storage)***. This means: from the console code (the developed command interpreter itself) and from the front-end and `RESTfull API` (built later on in subsequent series).
 
-This abstraction will also allow you to change the type of storage easily without updating all of your codebase.<br/>
-The console will be a tool to validate this storage engine...
+This abstraction will also allow you to change the type of storage easily without updating all of your codebase eg using a storage db.<br/>
+The console will be a tool to validate the storage engine...
 
 ## File Hierarchy:
 This section is all file info.
 ```bash
-├── README.md - project documentation.
+.
 ├── AUTHORS - Docker specified formatted file for contributers
+├── README.md - project documentation.
 ├── console.py - single-use command interpreter(uses Python `cmd` module).
-├── models/ - the main driver of the project; lays out Python Object Orientation, initialization, (de)serialization etc.
-│   ├── base_model.py - Includes base (class) models ; for subclassing/inheritance. Is the superclass.
-│   ├── __init__.py - make a Python package out of this modules.
+├── models/ - the main driver of the project; lays out Python Object Orientation, initialization,  serialization, (de)serialization etc.
+│   ├── __init__.py - effectively make a `Python` Package out of these module, unique FileStorage instance for app
+│   ├── base_model.py  - includes base (class) model ; for subclassing/inheritance - is the superclass.
 │   ├── user.py - sample file with subclass of BaseModel(from module base_model)
-│   ├── name.py - placeholder for other files for classes that inherit from BaseModel
 │   ├── engine/ - abstracted storage engine/system for persisting data.
-│   │   ├── file_storage.py - JSON file(save serialized data).
-│   │   ├── __init__.py - effectively make it Py-Package
-├── tests/ - directory for unit testing, test cases/test suites etc.
-└── * miscellaneous/anything else
+│   │   ├── __init__.py - effectively make a `Python` Package out of these module
+│   │   └── file_storage.py - module with methodes meant to interact with file storage(read from/write to JSON file), and models
+└── tests/ - directory for unit testing, test cases/test suites etc.
+    ├── __init__.py - effectively make a `Python` Package out of these module, for Python test discovery.
+    └── test_models/ - files that test models eg test_base_model.py, test_user.py, test_review.py
+        └── __init__.py - effectively make a `Python` Package out of these module, for Python test discovery.
 ```
+
 ## Command Interprter
 > `command-line interface`<br/>
 A shell implementation that uses the `Python` module `cmd`: which provides a simple framework for writing line-oriented command interpreters.
@@ -84,14 +87,38 @@ EOF  help  quit
 $
 ```
 
-- ### Actual `Shell` Behavior:
-Is a `CRUD` simulated behavior. Example of the interpreter features: [`create`, `update`, `destroy`, etc] - operations on objects in command-line.
+### Actual `Shell` Behavior [x]:
+Is a `CRUD` simulated behavior.  - operations on objects in command-line.
+
+> **Note**: <br/>
+> Example of the interpreter features: `create`, `show`, `update`, `destroy`, etc<br/>
+> For example to create a new base instance the syntax would be: `$ create BaseModel`<br/>
+> You can use the `help` menu as a manual/reference: `$ help destroy`<br/>
+> See the shell session below for reference on how to use the command interpreter/console:
 ```bash
-# to be pasted here from commandline later on
+root@HP:/alx-SE/AirBnB_clone# ./console.py
+(hbnb) show User e57df8d1-1910-491d-b1ed-0166c102a3d9
+[User] (e57df8d1-1910-491d-b1ed-0166c102a3d9) {'id': 'e57df8d1-1910-491d-b1ed-0166c102a3d9', 'created_at': datetime.datetime(2023, 5, 13, 10, 34, 49, 790134), 'updated_at': datetime.datetime(2023, 5, 13, 10, 34, 49, 790148), 'first_name': 'John', 'email': 'airbnb2@mail.com', 'password': 'root'}
+(hbnb) show Use e57df8d1-1910-491d-b1ed-0166c102a3d9
+** class doesn't exist **
+(hbnb) all
+["[BaseModel] (48b65c1f-9106-4113-8d37-cc7ab2d90ba6) {'id': '48b65c1f-9106-4113-8d37-cc7ab2d90ba6', 'created_at': datetime.datetime(2023, 5, 12, 14, 9, 49, 502137), 'updated_at': datetime.datetime(2023, 5, 12, 14, 9, 49, 502161), 'name': 'My_First_Model', 'my_number': 89}", "[BaseModel] (2d4dd2fd-6266-4c1b-8a65-727b641d83e3) {'id': '2d4dd2fd-6266-4c1b-8a65-727b641d83e3', 'created_at': datetime.datetime(2023, 5, 12, 14, 10, 7, 226227), 'updated_at': datetime.datetime(2023, 5, 12, 14, 10, 7, 226261), 'name': 'My_First_Model', 'my_number': 89}", "[BaseModel] (33595b8b-8ee1-43d5-ab35-c777565628b4) {'id': '33595b8b-8ee1-43d5-ab35-c777565628b4', 'created_at': datetime.datetime(2023, 5, 12, 14, 10, 22, 464350), 'updated_at': datetime.datetime(2023, 5, 12, 14, 10, 22, 464414), 'name': 'My_First_Model', 'my_number': 89}", "[BaseModel] (b9c7dd00-15d9-4069-964f-05de4a22bc32) {'id': 'b9c7dd00-15d9-4069-964f-05de4a22bc32', 'created_at': datetime.datetime(2023, 5, 12, 20, 24, 40, 392247), 'updated_at': datetime.datetime(2023, 5, 12, 20, 24, 40, 392346)}", "[User] (458405dd-1c31-486e-a306-bc232443dfaf) {'id': '458405dd-1c31-486e-a306-bc232443dfaf', 'created_at': datetime.datetime(2023, 5, 13, 10, 34, 49, 789439), 'updated_at': datetime.datetime(2023, 5, 13, 10, 34, 49, 789513), 'first_name': 'Betty', 'last_name': 'Bar', 'email': 'airbnb@mail.com', 'password': 'root'}", "[User] (e57df8d1-1910-491d-b1ed-0166c102a3d9) {'id': 'e57df8d1-1910-491d-b1ed-0166c102a3d9', 'created_at': datetime.datetime(2023, 5, 13, 10, 34, 49, 790134), 'updated_at': datetime.datetime(2023, 5, 13, 10, 34, 49, 790148), 'first_name': 'John', 'email': 'airbnb2@mail.com', 'password': 'root'}"]
+(hbnb) stuff BaseModel
+*** Unknown syntax: stuff BaseModel
+(hbnb) help update
+update
+        updates an instance based on the class name and id
+        by adding or updating attribute (save the change into the JSON file).
+        usage: update <class name> <id> <attribute name> "<attribute value>"
+
+(hbnb)
+(hbnb) create BaseModel
+2956e421-eecf-4ac7-bf49-7f493646738f
+(hbnb) EOF
+
+root@HP:/alx-SE/AirBnB_clone#
 ```
 
 ## Authors
 You can find a list of contributers/project developers in the [authors](./AUTHORS) file.
 If you like this project, take us out for `coffee` :)
-
-TEST
