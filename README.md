@@ -1,7 +1,7 @@
 # AirBnB: the console
 
 <div align="center">
- <img src="./hack/hbnb_console.png" height="150" width="400" />
+ <img src="./hack/hbnb_console.png" height="150" width="500" />
 </div>
 
 Part: `the console` <br/>
@@ -45,7 +45,7 @@ This section is all file info.
 
 ## Command Interprter
 > `command-line interface`<br/>
-A shell implementation that uses the `Python` module `cmd`: which provides a simple framework for writing line-oriented command interpreters.
+> a shell implementation that uses the `Python` module `cmd`: which provides a simple framework for writing line-oriented command interpreters.
 
 
 ### `usage`
@@ -92,9 +92,9 @@ Is a `CRUD` simulated behavior - operations on objects in command-line.
 
 > **Note**: <br/>
 > Example of the interpreter features: `create`, `show`, `update`, `destroy`, etc<br/>
-> For example to create a new base instance the syntax would be: `$ create BaseModel`<br/>
-> You can use the `help` menu as a manual/reference: `$ help destroy`<br/>
-> See the shell session below for reference on how to use the command interpreter/console:
+> create a new base instance - the syntax would be: `$ create BaseModel`<br/>
+> use the `help` menu as a manual/reference: `$ help destroy`<br/>
+> see the shell session below for reference on how to use the command interpreter/console:
 ```bash
 root@HP:/alx-SE/AirBnB_clone# ./console.py
 (hbnb) show User e57df8d1-1910-491d-b1ed-0166c102a3d9
@@ -120,5 +120,5 @@ root@HP:/alx-SE/AirBnB_clone#
 ```
 
 ## Authors
-You can find a list of contributors/project developers in the [authors](./AUTHORS) file.
+You can find a list of contributors/project developers in the [authors](./AUTHORS) file.<br/>
 If you like this project, take us out for `coffee` :)
