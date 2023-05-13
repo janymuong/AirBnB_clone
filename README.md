@@ -1,7 +1,7 @@
 # AirBnB: the console
 
 <div align="center">
- <img src="./hack/hbnb_console.png" height="100" width="600" />
+ <img src="./hack/hbnb_console.png" height="150" width="600" />
 </div>
 
 Part: `the console` <br/>
