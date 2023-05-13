@@ -7,7 +7,7 @@
 Part: `the console` <br/>
 This is the first part of the `AirBnB Clones` project series.
 
-This is a clone of the [AirBnB website](https://www.airbnb.com/). This specific part partly covers these concepts: `console(command interpreter)`, `Python Object Oriented Programming(OOP)`, ``file storage` etc.
+This is a clone of the [AirBnB website](https://www.airbnb.com/). This specific part partly covers these concepts: `console(command interpreter)`, `Python Object Oriented Programming(OOP)`, `file storage` etc.
 
 ---
 ### Basic Functionality
