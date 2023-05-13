@@ -91,7 +91,8 @@ $
 Is a `CRUD` simulated behavior - operations on objects in command-line.
 
 > **Note**: <br/>
-> Sample interpreter features: `create`, `show`, `update`, `destroy`, etc<br/>
+> start interpreter: `./console.py`;- quit interpreter: type `quit` or `EOF`<br/>
+> sample interpreter features: `create`, `show`, `update`, `destroy`, etc<br/>
 > create a new base instance - the syntax would be: `$ create BaseModel`<br/>
 > use the `help` menu as a manual/reference: `$ help destroy`<br/>
 > see the shell session below for reference on how to use the command interpreter/console:
@@ -117,6 +118,18 @@ update
 (hbnb) EOF
 
 root@HP:/alx-SE/AirBnB_clone#
+```
+
+## Python Unit Tests
+> uses the `unittest` module for testing.<br/>
+> `path` to test files/for test coverage - directory: `tests/test_models`
+
+Running tests using Python test discovery...
+```bash
+# execute tests using this command for all tests(pwd == AirBnB root dir): 
+$ python3 -m unittest discover tests
+# test file by file by using this command: 
+$ python3 -m unittest tests/test_models/test_base_model.py
 ```
 
 ## Authors
