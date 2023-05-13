@@ -8,6 +8,12 @@ import cmd
 
 from models import storage
 from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 
 PROMPT = '(hbnb) '
@@ -20,7 +26,8 @@ err_msg = ['** class name missing **',
            '** value missing **'
            ]
 
-cls_names = {'BaseModel'}
+cls_names = {'BaseModel', 'User', 'Place', 'State', 'City',
+             'Amenity', 'Review'}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -52,8 +59,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         '''show
-        prints the string representation of an instance based on the class
-        name and id.
+        prints the string representation of an instance
+        based on the class name and id.
         Ex: $ show BaseModel 1234-1234-1234.
         '''
         args = arg.split()
@@ -74,6 +81,100 @@ class HBNBCommand(cmd.Cmd):
                 print(err_msg[3])
                 return
             print(file_objs[obj_key])
+
+    def do_destroy(self, arg):
+        '''destroy
+        deletes an instance based on the class name
+        and id (save the change into the JSON file).
+        Ex: $ destroy BaseModel 1234-1234-1234
+        '''
+        args = arg.split()
+
+        if len(args) == 0:
+            print(err_msg[0])
+        elif args[0] not in cls_names:
+            print(err_msg[1])
+        elif len(args) == 1:
+            print(err_msg[2])
+        else:
+            obj_key = f'{args[0]}.{args[1]}'
+            file_objs = storage.all()
+            if obj_key not in file_objs:
+                print(err_msg[3])
+                return
+            del file_objs[obj_key]
+            storage.save()
+
+    def do_update(self, arg):
+        '''update
+        updates an instance based on the class name and id
+        by adding or updating attribute (save the change into the JSON file).
+        usage: update <class name> <id> <attribute name> "<attribute value>"
+        '''
+        args = arg.split()
+
+        if not arg:
+            print(err_msg[0])
+            return
+        if args[0] not in cls_names:
+            print(err_msg[1])
+            return
+        if len(args) < 2:
+            print(err_msg[2])
+            return
+
+        file_objs = storage.all()
+        obj_key = f'{args[0]}.{args[1]}'
+        if obj_key not in file_objs:
+            print(err_msg[3])
+            return
+
+        obj = file_objs[obj_key]
+
+        if len(args) == 2:
+            print(err_msg[4])
+            return
+        if len(args) < 4:
+            print(err_msg[5])
+            return
+
+        attr = args[2]
+        value = args[3]
+
+        if not hasattr(obj, attr):
+            print("** errmsg: attribute not found **")
+            return
+        elif attr == 'id' or attr == 'created_at' or attr == 'updated_at':
+            return
+        try:
+            value = type(getattr(obj, attr))(value)
+        except ValueError:
+            pass
+        setattr(obj, attr, value)
+        storage.save()
+        return
+
+    def do_all(self, arg):
+        '''all
+        prints all string representation of all instances
+        based or not on the class name.
+        ex: $ all BaseModel or $ all.
+        '''
+        if not arg:
+            print([str(file_obj) for file_obj in storage.all().values()])
+            return
+
+        try:
+            cls = arg.split()[0]
+
+            if cls not in cls_names:
+                print(err_msg[1])
+                return
+            file_objs = storage.all()
+            print([str(obj) for obj in file_objs.values()
+                   if obj.__class__.__name__ == cls])
+        except Exception:
+            pass
 
     def do_EOF(self, arg):
         '''EOF
