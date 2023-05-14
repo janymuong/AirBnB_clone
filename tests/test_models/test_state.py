@@ -60,5 +60,3 @@ class TestState(unittest.TestCase):
 
         self.assertEqual(name, state.name)
         self.assertNotEqual(state.name, State.name)
-
-
