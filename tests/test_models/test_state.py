@@ -60,3 +60,12 @@ class TestState(unittest.TestCase):
 
         self.assertEqual(name, state.name)
         self.assertNotEqual(state.name, State.name)
+
+    def test_name_attribute_is_class_attribute(self):
+        """
+            test that name is a class attribute
+        """
+        state = State()
+        msg = "Expected name to be class attribute but got instance attribute"
+
+        self.assertNotIn('name', state.__dict__.keys(), msg)
