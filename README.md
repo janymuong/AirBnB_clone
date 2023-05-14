@@ -96,10 +96,11 @@ Is a `CRUD` simulated behavior - operations on objects in command-line.
 > sample interpreter features: `create`, `show`, `update`, `destroy`, etc<br/>  
 
 > #### command syntax:  
->> create a new base instance: `$ create BaseModel`<br/>
+>> create a new object: `$ create ClassName`, for example to create a base instance do `$ create BaseModel`<br/>
 >> display objects from storage: `$ all`<br/>
->> destroy/delete objects from storage: `$ destroy User valid-id`<br/>
->> use the `help` menu as a manual/reference: `$ help destroy`<br/>  
+>> destroy/delete objects from storage: `$ destroy ClassName valid-id`<br/>
+>> use the `help` menu as a manual/reference: `$ help destroy`<br/>
+
 > see the shell session below for reference on how to use the command interpreter/console:
 ```bash
 root@HP:/alx-SE/AirBnB_clone# ./console.py
