@@ -384,4 +384,5 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(data2['updated_at'], data['updated_at'])
 
 
-
+if __name__ == "__main__":
+    unittest.main()
