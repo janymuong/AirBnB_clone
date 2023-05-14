@@ -1,13 +1,14 @@
-# AirBnB: the console
+# AirBnB clone - The console
 
 <div align="center">
  <img src="./hack/hbnb_console.png" height="150" width="600" />
 </div>
 
-Part: `the console` <br/>
+Part: `0x00 - the console` <br/>
 This is the first part of the `AirBnB Clones` project series.
 
-This is a clone of the [AirBnB website](https://www.airbnb.com/). This specific part partly covers these concepts: `console(command interpreter)`, `Python Object Oriented Programming(OOP)`, `file storage` etc.
+This is a clone of the [AirBnB website](https://www.airbnb.com/). This specific part partly covers these concepts:  
+`console(command interpreter)`, `Python Object Oriented Programming(OOP)`, `file storage` etc.
 
 ---
 ### Basic Functionality
@@ -31,21 +32,21 @@ This section is all file info.
 ├── README.md - project documentation.
 ├── console.py - single-use command interpreter(uses Python `cmd` module).
 ├── models/ - the main driver of the project; lays out Python Object Orientation, initialization,  serialization, (de)serialization etc.
-│   ├── __init__.py - effectively make a `Python` Package out of these module, unique FileStorage instance for app
+│   ├── __init__.py - effectively make a `Python` Package out of these modules, unique FileStorage instance for app
 │   ├── base_model.py  - includes base (class) model ; for subclassing/inheritance - is the superclass.
 │   ├── user.py - sample file with subclass of BaseModel(from module base_model)
 │   ├── engine/ - abstracted storage engine/system for persisting data.
-│   │   ├── __init__.py - effectively make a `Python` Package out of these module
+│   │   ├── __init__.py - effectively make a `Python` Package out of these modules
 │   │   └── file_storage.py - module with methodes meant to interact with file storage(read from/write to JSON file), and models
 └── tests/ - directory for unit testing, test cases/test suites etc.
-    ├── __init__.py - effectively make a `Python` Package out of these module, for Python test discovery.
+    ├── __init__.py - effectively make a `Python` Package out of these modules, for Python test discovery.
     └── test_models/ - files that test models eg test_base_model.py, test_user.py, test_review.py
-        └── __init__.py - effectively make a `Python` Package out of these module, for Python test discovery.
+        └── __init__.py - effectively make a `Python` Package out of these modules, for Python test discovery.
 ```
 
 ## Command Interprter
 > `command-line interface`<br/>
-> a shell implementation that uses the `Python` module `cmd`: which provides a simple framework for writing line-oriented command interpreters.
+> a shell implementation that uses the `Python` module `cmd`, which provides a simple framework for writing line-oriented command interpreters.
 
 
 ### `usage`
@@ -91,10 +92,14 @@ $
 Is a `CRUD` simulated behavior - operations on objects in command-line.
 
 > **Note**: <br/>
-> start interpreter: `./console.py`;- quit interpreter: type `quit` or `EOF`<br/>
-> sample interpreter features: `create`, `show`, `update`, `destroy`, etc<br/>
-> create a new base instance - the syntax would be: `$ create BaseModel`<br/>
-> use the `help` menu as a manual/reference: `$ help destroy`<br/>
+> start interpreter in interactive mode: `./console.py`;- quit interpreter: type `quit` or `EOF`, or press `Ctrl + D` <br/>
+> sample interpreter features: `create`, `show`, `update`, `destroy`, etc<br/>  
+
+> #### command syntax:  
+>> create a new base instance: `$ create BaseModel`<br/>
+>> display objects from storage: `$ all`<br/>
+>> destroy/delete objects from storage: `$ destroy User valid-id`<br/>
+>> use the `help` menu as a manual/reference: `$ help destroy`<br/>  
 > see the shell session below for reference on how to use the command interpreter/console:
 ```bash
 root@HP:/alx-SE/AirBnB_clone# ./console.py
@@ -133,5 +138,5 @@ $ python3 -m unittest tests/test_models/test_base_model.py
 ```
 
 ## Authors
-You can find a list of contributors/project developers in the [authors](./AUTHORS) file.<br/>
+You can find a list of contributors/project developers in the [authors](./AUTHORS) file.  
 If you like this project, take us out for `coffee` :)
