@@ -146,3 +146,10 @@ class TestFileStorage(unittest.TestCase):
             serializes __objects to a file
         """
         pass
+    
+    def test_reload_is_present(self):
+        """
+            tests that reload() is present
+        """
+        msg = "Expected FileStorage to have function 'reload'"
+        self.assertTrue(hasattr(FileStorage, 'reload'), msg)
