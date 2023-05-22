@@ -9,7 +9,7 @@ This directort contains static web files including `HTML` and `CSS`. It serves a
 ├── n-index.html - the main HTML files that represents the page structures of each webpage.
 ├── images - icons files directory.
 └── styles
-    └── style.css - the CSS files that contains styles and formatting rules for the web pages.
+    └── *.css - the CSS files that contains styles and formatting rules for the web pages.
 ```
 
 ### Built with:
