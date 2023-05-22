@@ -8,4 +8,5 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-  }  
+  }
+  /*use p element as a flex container for easier align*/
