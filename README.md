@@ -47,6 +47,7 @@ This section is all file info.
     
 
 ## [web_static](./web_static/):
+> `frontend`  
 >> this is a mock frontend for the AirBnB clone; with fake (static) data at this point.
   
 
