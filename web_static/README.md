@@ -1,7 +1,7 @@
 ## Web Static
 > `css`, `html`
 
-This directort contains static web files including `HTML` and `CSS`. It serves as a starting point for building static websites.
+This directory contains static web files including `HTML` and `CSS`. It serves as a starting point for building static websites.
 
 ### File Info:
 ```bash
@@ -13,7 +13,7 @@ This directort contains static web files including `HTML` and `CSS`. It serves a
 ```
 
 ### W3C File Validation:
-> [this](./w3c_validator.py) is a Python validator for the syntax of **HTML** and **CSS** files, and whether or not they make sense in terms of the `World Wide Web Consortium` web standards, and to ascertain interoperability and compatibility across different web browsers and devices.
+> [This](./w3c_validator.py) is a Python validator for the syntax of **HTML** and **CSS** files, and whether or not they make sense in terms of the `World Wide Web Consortium` web standards, and to ascertain interoperability and compatibility across different web browsers and devices.
 
 Running it:
 ```bash
