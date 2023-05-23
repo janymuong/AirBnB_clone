@@ -44,6 +44,10 @@ This section is all file info.
         └── __init__.py - effectively make a `Python` Package out of these modules, for Python test discovery.
 ```
 
+### [web_static](./web_static/)
+This is a mock frontend for the AirBnB clone; with fake (static) data at this point.
+
+
 ## Command Interprter
 > `command-line interface`<br/>
 > a shell implementation that uses the `Python` module `cmd`, which provides a simple framework for writing line-oriented command interpreters.
