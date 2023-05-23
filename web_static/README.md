@@ -15,7 +15,7 @@ This directory contains static web files including `HTML` and `CSS`. It serves a
 ### W3C File Validation:
 > [This](./w3c_validator.py) is a Python validator for the syntax of **HTML** and **CSS** files, and whether or not they make sense in terms of the `World Wide Web Consortium` web standards, and to ascertain interoperability and compatibility across different web browsers and devices.
 
-Running it:
+Running it...
 ```bash
 # simple file:
 ./w3c_validator.py index.html
@@ -23,8 +23,7 @@ Running it:
 ./w3c_validator.py index.html header.html styles/common.css
 ```
 All errors are printed in `STDERR`  
-**return**:
-Exit status is the # of errors, 0 on Success
+**return**: `exit status` is the # of errors, 0 on Success
 
 
 ### Built with:
