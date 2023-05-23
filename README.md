@@ -46,8 +46,8 @@ This section is all file info.
   
     
 
-## [web_static](./web_static/)
-> this is a mock frontend for the AirBnB clone; with fake (static) data at this point.
+## [web_static](./web_static/):
+This is a mock frontend for the AirBnB clone; with fake (static) data at this point.
   
 
   
@@ -56,7 +56,7 @@ This section is all file info.
 > a shell implementation that uses the `Python` module `cmd`, which provides a simple framework for writing line-oriented command interpreters.
 
 
-### `usage`
+### Usage:
 - Supposed theoretical behavior in interactive mode:
 ```bash
 $ ./console.py
@@ -72,7 +72,7 @@ EOF  help  quit
 $
 ```
 
-- Supposed behavior in non-interactive mode:
+- Supposed theoretical behavior in non-interactive mode:
 ```bash
 $ echo "help" | ./console.py
 (hbnb)
