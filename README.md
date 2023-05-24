@@ -19,9 +19,9 @@ This is a clone of the [AirBnB website](https://www.airbnb.com/). This specific 
     - manage (create, update, destroy, etc) objects via a console / command interpreter
     - store and persist objects to a file (JSON file)
 ```
-The first piece is to manipulate a storage system. This storage engine will give us an abstraction between model ***objects*** and ***storage(persisting to storage)***. This means: from the console code (the developed command interpreter itself) and from the front-end and `RESTfull API` (built later on in subsequent series).
+The first piece is to manipulate a storage system. This storage engine will give us an abstraction between model ***objects*** and ***storage(persisting to storage)***. This means: from the console code (the developed command interpreter itself) and from the front-end and `RESTful API` (built later on in subsequent series).
 
-This abstraction will also allow you to change the type of storage easily without updating all of your codebase eg using a **storage db**.<br/>
+This abstraction will also allow you to change the type of storage easily without updating all of your codebase eg using a **storage db**.  
 The console will be a tool to validate the storage engine...
 
 ## File Hierarchy:
